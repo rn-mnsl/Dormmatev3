@@ -62,7 +62,7 @@
 {:else}
   <main class="main-content">
     <div class="welcome-container">
-      <h2 class="dashboard-title">Welcome, {adminName}</h2>
+      <h2 class="dashboard-title">Welcome, Admin: {adminName}</h2>
       <p class="dashboard-intro">
         This will be your personalized dashboard, providing easy access to essential features as the admin such as rent payments, maintenance requests, announcements management.
       </p>
@@ -149,115 +149,115 @@
 
 <style>
   .main-content {
-    flex-grow: 1;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    overflow-y: auto;
-    margin-left: 250px;
+  flex-grow: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  margin-left: 250px;
   }
 
   .welcome-container {
-    width: 885px;
-    max-width: 100%;
-    margin: 0 auto;
-    padding: 20px;
+  width: 885px;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 20px;
   }
 
   .dashboard-title {
-    color: #343a40;
-    font-size: 2.5em;
-    font-weight: 700;
-    margin-bottom: 10px;
+  color: #343a40;
+  font-size: 2.5em;
+  font-weight: 700;
+  margin-bottom: 10px;
   }
 
   .dashboard-title-two { 
-    color: #343a40;
-    font-size: 1.5em; 
-    font-weight: 700;
-    margin-bottom: 10px; 
+  color: #343a40;
+  font-size: 1.5em; 
+  font-weight: 700;
+  margin-bottom: 10px; 
   }
 
   .dashboard-intro {
-    color: #000;
-    margin-bottom: 30px;
+  color: #000;
+  margin-bottom: 30px;
   }
 
   .stats-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-    margin-bottom: 30px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-bottom: 30px;
   }
 
   .stats-card {
-    background-color: #f8f9fa;
-    border-radius: 10px;
-    padding: 20px;
-    text-align: center;
-    border: 1px solid #dee2e6;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  border: 1px solid #dee2e6;
   }
 
   .stats-number {
-    font-size: 2em;
-    font-weight: 700;
-    color: #007bff;
-    margin: 10px 0;
+  font-size: 2em;
+  font-weight: 700;
+  color: #007bff;
+  margin: 10px 0;
   }
 
   .horizontal-divider {
-    border: 1px solid #dee2e6;
-    margin: 20px 0;
+  border: 1px solid #dee2e6;
+  margin: 20px 0;
   }
 
   .features-container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
   }
 
   .feature-card {
-    border-radius: 10px;
-    border: 1px solid #dee2e6;
-    padding: 20px;
-    font-size: 18px;
-    font-weight: 600;
+  border-radius: 10px;
+  border: 1px solid #dee2e6;
+  padding: 20px;
+  font-size: 18px;
+  font-weight: 600;
   }
 
   .feature-description {
-    font-size: 14px;
-    font-weight: 400;
-    margin-top: 10px;
+  font-size: 14px;
+  font-weight: 400;
+  margin-top: 10px;
   }
 
   .dashboard-button {
-    display: flex;
-    background-color: #007bff;
-    color: white;
-    padding: 10px 15px;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-    margin-top: 10px;
+  display: flex;
+  background-color: #007bff;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
   }
 
   .dashboard-button:hover {
-    background-color: #0056b3;
+  background-color: #0056b3;
   }
 
   @media (max-width: 1024px) {
-    .stats-grid, .features-container {
-      grid-template-columns: repeat(4, 1fr);
-    }
+  .stats-grid, .features-container {
+  grid-template-columns: repeat(4, 1fr);
+  }
   }
 
   @media (max-width: 768px) {
-    .main-content {
-      margin-left: 0;
-    }
-    
-    .stats-grid, .features-container {
-      grid-template-columns: 1fr;
-    }
+  .main-content {
+  margin-left: 0;
+  }
+
+  .stats-grid, .features-container {
+  grid-template-columns: 1fr;
+  }
   }
 </style>

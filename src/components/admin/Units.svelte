@@ -144,6 +144,7 @@
               </div>
               <div>
                 <label for="editUnitDescription">Description:</label>
+                
                 <input type="text" id="editUnitDescription" bind:value={editUnitDescription} />
               </div>
               <div class="button-container">

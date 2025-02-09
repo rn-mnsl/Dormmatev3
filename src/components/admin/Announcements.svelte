@@ -8,21 +8,22 @@
   let newAnnouncementTitle = '';
   let newAnnouncementContent = '';
   let showModal = false;
-    let deletingAnnouncementId = null;
-      let showDeleteConfirmation = false;
-    let editingAnnouncementId = null;
-    let editAnnouncementTitle = "";
-     let editAnnouncementContent ="";
+  let deletingAnnouncementId = null;
+  let showDeleteConfirmation = false;
+  let editingAnnouncementId = null;
+  let editAnnouncementTitle = "";
+  let editAnnouncementContent = "";
+  let userId = null; // Declare userId variable
 
-     onMount(async () => {
+  onMount(async () => {
     fetchAnnouncements();
-      // Get the userId from localStorage or default it to 1
-          const storedToken = localStorage.getItem('token');
-           if(storedToken === "admin123") {
-                userId = 10010008; // Replace 1 with the actual ID of the test admin user from your db if you want to see the previous data.
-         } else {
-               userId = 1 // default id
-           }
+    // Get the userId from localStorage
+    const storedUserId = localStorage.getItem('userId');
+    if (storedUserId) {
+      userId = parseInt(storedUserId, 10); // Convert to integer
+    } else {
+      userId = 1; // Default userId if not found in localStorage
+    }
   });
 
   async function fetchAnnouncements() {
@@ -36,72 +37,79 @@
       loading = false;
     }
   }
-    
-   async function handleSubmit(){
-      try {
-        const response = await createAnnouncement({
-           title: newAnnouncementTitle,
-           content: newAnnouncementContent
-           }, 10010008);
 
-        await fetchAnnouncements();
-
-       newAnnouncementTitle = "";
-       newAnnouncementContent = "";
-
-        showModal = false;
-
-        console.log('New Announcement Created', response);
-      } catch (err) {
-        error = err.message;
-      }
+  async function handleSubmit() {
+    if (!userId) {
+      error = "User ID is not available. Please log in again.";
+      return;
     }
-  
-    function confirmDelete(announcementId) {
-      deletingAnnouncementId = announcementId;
-       showDeleteConfirmation = true;
-   }
-   function cancelDelete() {
-     deletingAnnouncementId = null;
-       showDeleteConfirmation = false;
+
+    try {
+      const response = await createAnnouncement({
+        title: newAnnouncementTitle,
+        content: newAnnouncementContent
+      }, userId); // Use the userId from localStorage
+
+      await fetchAnnouncements();
+
+      newAnnouncementTitle = "";
+      newAnnouncementContent = "";
+
+      showModal = false;
+
+      console.log('New Announcement Created', response);
+    } catch (err) {
+      error = err.message;
+    }
   }
-    async function handleDelete() {
-       try {
-           await deleteAnnouncement(deletingAnnouncementId);
-            await fetchAnnouncements();
-             deletingAnnouncementId = null;
-            showDeleteConfirmation = false;
 
-           console.log("Announcement Deleted");
-       } catch (error) {
-         error = error.message;
-      }
-    }
-      function startEdit(announcement){
-       editingAnnouncementId = announcement.announcementId;
-          editAnnouncementTitle = announcement.title;
-          editAnnouncementContent = announcement.content;
-      }
-      async function updateAnnouncementData(announcementId) {
-        try {
-            const response = await updateAnnouncement(announcementId, {
-               title: editAnnouncementTitle,
-              content: editAnnouncementContent
-          });
-           await fetchAnnouncements();
+  function confirmDelete(announcementId) {
+    deletingAnnouncementId = announcementId;
+    showDeleteConfirmation = true;
+  }
 
-           editingAnnouncementId = null;
-          console.log("Announcement updated");
+  function cancelDelete() {
+    deletingAnnouncementId = null;
+    showDeleteConfirmation = false;
+  }
 
-        }
-      catch(err){
-            error = err.message;
-        }
+  async function handleDelete() {
+    try {
+      await deleteAnnouncement(deletingAnnouncementId);
+      await fetchAnnouncements();
+      deletingAnnouncementId = null;
+      showDeleteConfirmation = false;
+
+      console.log("Announcement Deleted");
+    } catch (error) {
+      error = error.message;
     }
-  
-    function cancelEdit() {
-        editingAnnouncementId = null;
+  }
+
+  function startEdit(announcement) {
+    editingAnnouncementId = announcement.announcementId;
+    editAnnouncementTitle = announcement.title;
+    editAnnouncementContent = announcement.content;
+  }
+
+  async function updateAnnouncementData(announcementId) {
+    try {
+      const response = await updateAnnouncement(announcementId, {
+        title: editAnnouncementTitle,
+        content: editAnnouncementContent
+      });
+      await fetchAnnouncements();
+
+      editingAnnouncementId = null;
+      console.log("Announcement updated");
+    } catch (err) {
+      error = err.message;
     }
+  }
+
+  function cancelEdit() {
+    editingAnnouncementId = null;
+  }
 </script>
 
 <div class="main-container">
@@ -124,7 +132,7 @@
                 <h3>{announcement.title}</h3>
                 <small class="post-date">Posted on: {new Date(announcement.postDate).toLocaleString()}</small>        
               </div>  
-                <div class="posted-by"> Posted by Admin</div>
+                <div class="posted-by"> Posted by Tess Lazaro</div>
               {/if}
         </div>
 
@@ -200,179 +208,179 @@
 
 <style>
   .main-container { 
-    max-width: 1200px;
-      margin: 0 auto;
-      padding: 20px;
-      margin-left: 300px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  margin-left: 300px;
   }
 
   .main-header {
-    font-size: 2em; 
-    font-weight: bold; 
-    margin-top: 5px;
-    margin-bottom: 10px; 
+  font-size: 2em; 
+  font-weight: bold; 
+  margin-top: 5px;
+  margin-bottom: 10px; 
   }
 
   .subtext {
-    font-size: 0.9em;
-    color: #666;
-    margin-top: 1px;
-    margin-bottom: 25px;
+  font-size: 0.9em;
+  color: #666;
+  margin-top: 1px;
+  margin-bottom: 25px;
   }
 
   .announcement-list {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
   }
 
   .announcement-card {
-      background-color: white;
-      border-radius: 8px;
-      padding: 20px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      position: relative;
-   }
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+  }
 
   .posted-by {
-    font-size: 0.8em;
-    color: #666;
-    margin-top: 0;
-    margin-bottom: 5px;
+  font-size: 0.8em;
+  color: #666;
+  margin-top: 0;
+  margin-bottom: 5px;
   } 
-   .card-header {
-     display: flex;
-     flex-direction: column;
-     align-items: flex-start;
-    margin-bottom: 10px; 
- }
+  .card-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 10px; 
+  }
 
- .title-date-container {
+  .title-date-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%
- }
+  }
 
   .button-container {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    margin-top: 10px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 10px;
   }
-.announcement-card h3 {
-      margin-top: 0;
-      margin-bottom: 5px;
-}
-.announcement-card p {
-   margin-bottom: 10px;
-    line-height: 1.5;
+  .announcement-card h3 {
+  margin-top: 0;
+  margin-bottom: 5px;
   }
-  
- .post-date {
-      font-size: 0.8em;
-      color: gray;
-      margin-left: 10px;
- }
-    form {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-     margin-top: 20px;
-      width: 100%;
-       margin: 20px auto; /* Center the form */
-    }
+  .announcement-card p {
+  margin-bottom: 10px;
+  line-height: 1.5;
+  }
 
-    form div {
-      margin-bottom: 20px;
-      display: flex;
-      flex-direction: column;
-      width: 100%;
-    }
+  .post-date {
+  font-size: 0.8em;
+  color: gray;
+  margin-left: 10px;
+  }
+  form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+  width: 100%;
+  margin: 20px auto; /* Center the form */
+  }
 
-   label {
-      text-align: left; /* Align labels to the left */
-      margin-bottom: 5px;
-    }
-     input[type="text"]{
-       padding: 12px;
-       border: 1px solid #ddd;
-       border-radius: 4px;
-          width: 100%; /* Make input fields fill their container */
-        box-sizing: border-box; 
-        font-size: 1em;    
-     }
-   button {
-        padding: 10px 20px;
-        background-color: #007bff;
-        color: white;
-        border: none;
-       border-radius: 4px;
-        cursor: pointer;
-      margin:  0 10px 10px 0;
-      white-space: nowrap;
-    }
-       button:hover {
-        background-color: #0056b3;
-     }
+  form div {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  }
+
+  label {
+  text-align: left; /* Align labels to the left */
+  margin-bottom: 5px;
+  }
+  input[type="text"]{
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  width: 100%; /* Make input fields fill their container */
+  box-sizing: border-box; 
+  font-size: 1em;    
+  }
+  button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin:  0 10px 10px 0;
+  white-space: nowrap;
+  }
+  button:hover {
+  background-color: #0056b3;
+  }
   .deletebutton {
-    background-color: red;
+  background-color: red;
   }
 
-   .deletebutton:hover {
-        background-color: rgb(135, 0, 0);
+  .deletebutton:hover {
+  background-color: rgb(135, 0, 0);
   }
-      .addbutton{
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        padding: 10px 20px;
-        background-color: #007bff;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        z-index: 1000
-    }
-        .modal {
-             position: fixed;
-          top: 0;
-          left: 0;
-           width: 100%;
-           height: 100%;
-           background-color: rgba(0, 0, 0, 0.5); /* semi-transparent black */
-        display: flex;
-        justify-content: center;
-          align-items: center;
-          z-index: 1000;
-        }
+  .addbutton{
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  z-index: 1000
+  }
+  .modal {
+      position: fixed;
+  top: 0;
+  left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* semi-transparent black */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  }
 
-   .modal-content {
-      background-color: white;
-       padding: 20px;
-       border-radius: 20px;
-       display: flex;
-          flex-direction: column;
-       text-align: left;
-        width: 600px;
-   }
+  .modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  width: 600px;
+  }
 
-   .modal-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    width: 50%;
-    margin-top: 20px;
-   }
+  .modal-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  width: 50%;
+  margin-top: 20px;
+  }
 
   textarea {
-   padding: 12px; /* Match input field padding */
-   border: 1px solid #ddd;
-   border-radius: 4px;
-   width: 100%; /* Make textarea take full width */
-   font-size: 1em; /* Match input field font size */
-   resize: vertical; /* Allow vertical resizing */
-   box-sizing: border-box; /* Ensure padding and border are included in width */
-   min-height: 100px; /* Set a minimum height */
-}
+  padding: 12px; /* Match input field padding */
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  width: 100%; /* Make textarea take full width */
+  font-size: 1em; /* Match input field font size */
+  resize: vertical; /* Allow vertical resizing */
+  box-sizing: border-box; /* Ensure padding and border are included in width */
+  min-height: 100px; /* Set a minimum height */
+  }
 </style>

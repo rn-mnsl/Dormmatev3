@@ -140,9 +140,8 @@
           </tbody>
         </table>
       </div>
-        <button class="button primary add-payment-button" on:click={openModal}>Add Payment</button>
-
     {/if}
+    <button class="addbutton" on:click={openModal}>Add Payment</button>
   </div>
 </div>
 
@@ -490,5 +489,18 @@
   .modal-content input[type='text']:focus {
     border-color: #007bff;
     outline: none;
+  }
+
+  .addbutton{
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  z-index: 1000
   }
 </style>

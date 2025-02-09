@@ -193,62 +193,62 @@
 
 <style>
 
-.main-content {
+  .main-content {
   margin-left: 300px; /* Adjust this value based on the width of your sidebar */
   padding: 20px;
   max-width: 1200px;
   padding: 20px;
-}
+  }
 
   .main-header {
-    font-size: 2em; 
-    font-weight: bold; 
-    margin-top: 5px;
-    margin-bottom: 10px; 
+  font-size: 2em; 
+  font-weight: bold; 
+  margin-top: 5px;
+  margin-bottom: 10px; 
   }
 
   .subtext {
-    font-size: 0.9em;
-    color: #666;
-    margin-top: 1px;
-    margin-bottom: 25px;
+  font-size: 0.9em;
+  color: #666;
+  margin-top: 1px;
+  margin-bottom: 25px;
   }
 
   .search-container {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
   }
 
   .search-container input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 1em;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1em;
   }
 
-table {
+  table {
   width: 100%;
   border-collapse: collapse;
-}
+  }
 
-th, td {
+  th, td {
   border: 1px solid #ddd;
   padding: 8px;
   text-align: center;
-}
+  }
 
-th {
+  th {
   background-color: #f0f0f0;
-}
+  }
 
-select {
+  select {
   padding: 8px;
   border: 1px solid #ddd;
   border-radius: 4px;
   background-color: white;
-}
+  }
 
-button {
+  button {
   size: 10px;
   padding: 10px 10px;
   color: white;
@@ -257,69 +257,69 @@ button {
   border-radius: 4px;
   cursor: pointer;
   margin: 0 5px;
-}
+  }
 
-button:hover {
+  button:hover {
   opacity: 0.8;
   background-color: #0056b3;
-}
+  }
 
-img {
+  img {
   display: block;
   margin: auto;
-}
+  }
 
-.button-container { 
+  .button-container { 
   display: flex;
-  
 
-}
 
-.modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
+  }
+
+  .modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
   }
 
   .modal-image-content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 5px;
-    max-width: 90vw;
-    max-height: 90vh;
-    position: relative;
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  max-width: 90vw;
+  max-height: 90vh;
+  position: relative;
   }
 
   .modal-image-content img {
-    max-width: 100%;
-    max-height: 80vh;
-    object-fit: contain;
+  max-width: 100%;
+  max-height: 80vh;
+  object-fit: contain;
   }
 
   .close-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background-color: #333;
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #333;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
   }
 
   .close-button:hover {
-    background-color: #555;
+  background-color: #555;
   }
 </style>

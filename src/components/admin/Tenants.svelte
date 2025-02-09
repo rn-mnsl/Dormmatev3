@@ -1,82 +1,105 @@
 <script>
-    import { onMount } from 'svelte';
-    import { getUsers, createUser, getUnits } from '../../lib/api';
-  
-    let tenants = [];
-    let units = [];
-    let loading = true;
-    let error = null;
-    let newTenantName = '';
-    let newTenantEmail = '';
-    let newTenantPassword = '';
-      let newTenantContactNumber = "";
-      let newTenantMoveInDate = "";
-    let selectedUnitId = null;
-     let showModal = false;
-     let searchQuery = "";
+  import { onMount } from 'svelte';
+  import { getUsers, createUser, getUnits, updateUser } from '../../lib/api';
 
-     //searchQuery
-    $: filteredTenants = tenants.filter(tenant =>
-      String(tenant.userId).includes(searchQuery) ||
-      tenant.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      tenant.username.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      tenant.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      (tenant.unit ? tenant.unit.unitName.toLowerCase().includes(searchQuery.toLowerCase()) : false)
-    );
-  
-  
-    onMount(async () => {
-      fetchTenants();
-        fetchUnits();
-    });
-  
-    async function fetchTenants() {
-      loading = true;
-      try {
-        tenants = await getUsers();
-      } catch (err) {
-        error = err.message;
-      } finally {
-        loading = false;
-      }
+  let tenants = [];
+  let units = [];
+  let loading = true;
+  let error = null;
+  let newTenantName = '';
+  let newTenantEmail = '';
+  let newTenantPassword = '';
+  let newTenantContactNumber = "";
+  let newTenantMoveInDate = "";
+  let selectedUnitId = null;
+  let showModal = false;
+  let showEditModal = false;
+  let searchQuery = "";
+  let editingTenant = null;
+
+  $: filteredTenants = tenants.filter(tenant =>
+    String(tenant.userId).includes(searchQuery) ||
+    tenant.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    tenant.username.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    tenant.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    (tenant.unit ? tenant.unit.unitName.toLowerCase().includes(searchQuery.toLowerCase()) : false)
+  );
+
+  onMount(async () => {
+    fetchTenants();
+    fetchUnits();
+  });
+
+  async function fetchTenants() {
+    loading = true;
+    try {
+      tenants = await getUsers();
+    } catch (err) {
+      error = err.message;
+    } finally {
+      loading = false;
     }
-  
-      async function fetchUnits(){
-       try {
-             units = await getUnits();
-         }
-         catch (err) {
-           error = err.message;
-         }
-       }
-  
-       async function handleAddTenant(){
-        try {
-           const response = await createUser({
-              username: newTenantName,
-                email: newTenantEmail,
-                password: newTenantPassword,
-                role: "tenant",
-                name: newTenantName,
-                contactNumber: newTenantContactNumber,
-                moveInDate: newTenantMoveInDate
-           }, selectedUnitId);
+  }
 
-
-         await fetchTenants();
-          newTenantName = "";
-            newTenantEmail = "";
-            newTenantPassword = "";
-            newTenantContactNumber = "";
-              newTenantMoveInDate = "";
-               selectedUnitId = null;
-
-             console.log("New tenant added", response)
-        } catch (err) {
-            error = err.message;
-        }
+  async function fetchUnits(){
+    try {
+      units = await getUnits();
+    } catch (err) {
+      error = err.message;
     }
-  </script>
+  }
+
+  async function handleAddTenant(){
+    try {
+      const response = await createUser({
+        username: newTenantName,
+        email: newTenantEmail,
+        password: newTenantPassword,
+        role: "tenant",
+        name: newTenantName,
+        contactNumber: newTenantContactNumber,
+        moveInDate: newTenantMoveInDate
+      }, selectedUnitId);
+
+      await fetchTenants();
+      newTenantName = "";
+      newTenantEmail = "";
+      newTenantPassword = "";
+      newTenantContactNumber = "";
+      newTenantMoveInDate = "";
+      selectedUnitId = null;
+      showModal = false;
+    } catch (err) {
+      error = err.message;
+    }
+  }
+
+  function handleEditClick(tenant) {
+    editingTenant = { ...tenant };
+    selectedUnitId = tenant.unit ? tenant.unit.unitId : null;
+    showEditModal = true;
+  }
+
+  async function handleEditTenant() {
+    try {
+      await updateUser({
+        userId: editingTenant.userId,
+        username: editingTenant.username,
+        email: editingTenant.email,
+        name: editingTenant.name,
+        contactNumber: editingTenant.contactNumber,
+        moveInDate: editingTenant.moveInDate
+      }, selectedUnitId);
+
+      await fetchTenants();
+      showEditModal = false;
+      editingTenant = null;
+      selectedUnitId = null;
+    } catch (err) {
+      error = err.message;
+    }
+  }
+</script>
   
   <div class="main-container">
   <div class="main-header">Tenant Management</div>

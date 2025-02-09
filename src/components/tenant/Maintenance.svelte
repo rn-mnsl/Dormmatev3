@@ -1,10 +1,8 @@
 <script>
   import { onMount, createEventDispatcher } from 'svelte';
   import { getMaintenanceRequests, uploadMaintenanceProof } from '../../lib/api';
-  import { useNavigate } from 'svelte-navigator';
 
   const dispatch = createEventDispatcher();
-  const navigate = useNavigate();
 
   let requests = [];
   let loading = true;
@@ -14,6 +12,8 @@
   let unitId;
   let proofOfDamage = null;
   let showModal = false;
+  let showImageModal = false;
+  let selectedImage = null;
 
   onMount(async () => {
     userId = localStorage.getItem('userId');
@@ -66,9 +66,8 @@
         throw new Error('Invalid user ID or unit ID');
       }
 
-      // Format the date in the correct format
       const now = new Date();
-      const formattedDate = now.toISOString().substring(0, 19); // Format: YYYY-MM-DDTHH:mm:ss
+      const formattedDate = now.toISOString().substring(0, 19);
       const response = await uploadMaintenanceProof(formData, userId, {
         description: description,
         unitId: unitId,
@@ -79,7 +78,6 @@
       await fetchRequests();
       dispatch('requestSuccess');
       closeModal();
-      // Reset form
       description = '';
       proofOfDamage = null;
     } catch (err) {
@@ -90,11 +88,22 @@
 
   function handleFileChange(event) {
     const file = event.target.files[0];
-    if (file) {
-      proofOfDamage = file;
-    } else {
-      proofOfDamage = null;
-    }
+    proofOfDamage = file ? file : null;
+  }
+
+  function openImageModal(imageUrl) {
+    selectedImage = imageUrl;
+    showImageModal = true;
+  }
+
+  function closeImageModal() {
+    selectedImage = null;
+    showImageModal = false;
+  }
+
+  function handleImageError(event) {
+    event.target.src = '/placeholder-image.png';
+    event.target.alt = 'Image not available';
   }
 
   function openModal() {
@@ -115,7 +124,7 @@
 
 <div class="container">
   <h2>Maintenance Request</h2>
-  <hr class="divider" /> <!-- Horizontal line divider -->
+  <hr class="divider" />
 
   <div class="request-history">
     <h3>Your Maintenance Requests</h3>
@@ -131,8 +140,20 @@
             <p class="request-description">
               <strong>Description:</strong> {request.description}
             </p>
+            {#if request.proofOfDamage}
+              <div class="image-preview">
+                <p><strong>Proof of Damage:</strong></p>
+                <img 
+                  src={request.proofOfDamage} 
+                  alt="Proof of damage"
+                  on:error={handleImageError}
+                  on:click={() => openImageModal(request.proofOfDamage)}
+                  class="thumbnail"
+                />
+              </div>
+            {/if}
             <p class="request-status">
-              <strong>Status: </strong>
+              <strong>Status:</strong>
               <span class="status-badge status-{request.status.toLowerCase().replace(' ', '-')}">
                 {request.status}
               </span>
@@ -143,10 +164,7 @@
           </div>
         {/each}
       </div>
-      <!-- Button placed below the cards -->
-      <button class="button primary add-request-button" on:click={openModal}>
-        Send Maintenance Request
-      </button>
+      <button class="addbutton" on:click={openModal}>Send Maintenance Request</button>
     {/if}
   </div>
 </div>
@@ -514,4 +532,112 @@
     border-color: #007bff;
     outline: none;
   }
+
+  .addbutton{
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  z-index: 1000
+  }
+
+  .image-preview {
+    margin: 10px 0;
+    text-align: center;
+  }
+
+  .thumbnail {
+    max-width: 150px;
+    max-height: 150px;
+    object-fit: cover;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+
+  .thumbnail:hover {
+    transform: scale(1.05);
+  }
+
+  .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+  }
+
+  .status-badge {
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.9em;
+    font-weight: 500;
+    text-align: center;
+  }
+
+  .status-open {
+    background-color: #fff3cd;
+    color: #856404;
+  }
+
+  .status-in-progress {
+    background-color: #cce5ff;
+    color: #004085;
+  }
+
+  .status-resolved {
+    background-color: #d4edda;
+    color: #155724;
+  }
+
+  .status-closed {
+    background-color: #f8d7da;
+    color: #721c24;
+  }
+
+/* Modal content styling */
+.modal-image-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 90vw;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Close button positioning */
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #333;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.close-button:hover {
+  background-color: #555;
+}
 </style>

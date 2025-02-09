@@ -190,192 +190,192 @@
 
     .main-container { 
     max-width: 1200px;
-      margin: 0 auto;
-      padding: 20px;
-      margin-left: 300px;
+    margin: 0 auto;
+    padding: 20px;
+    margin-left: 300px;
     }
 
-  .request-cards {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-      justify-content: center;
-  }
+    .request-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    justify-content: center;
+    }
 
-  .request-card {
-      background-color: white;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      padding: 20px;
-      width: 300px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-  }
+    .request-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    }
 
-  .image-preview {
-      margin: 10px 0;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 150px;
-  }
+    .image-preview {
+    margin: 10px 0;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 150px;
+    }
 
-  .thumbnail {
-      max-width: 150px;
-      max-height: 150px;
-      object-fit: cover;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: transform 0.2s;
-  }
+    .thumbnail {
+    max-width: 150px;
+    max-height: 150px;
+    object-fit: cover;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: transform 0.2s;
+    }
 
-  .thumbnail:hover {
-      transform: scale(1.05);
-  }
+    .thumbnail:hover {
+    transform: scale(1.05);
+    }
 
-  .modal-image-content {
-      background-color: white;
-      padding: 20px;
-      border-radius: 5px;
-      max-width: 90vw;
-      max-height: 90vh;
-      position: relative;
-  }
+    .modal-image-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    max-width: 90vw;
+    max-height: 90vh;
+    position: relative;
+    }
 
-  .modal-image-content img {
-      max-width: 100%;
-      max-height: 80vh;
-      object-fit: contain;
-  }
+    .modal-image-content img {
+    max-width: 100%;
+    max-height: 80vh;
+    object-fit: contain;
+    }
 
-  .close-button {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      background-color: #333;
-      color: white;
-      border: none;
-      border-radius: 50%;
-      width: 30px;
-      height: 30px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-  }
+    .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    }
 
-  .close-button:hover {
-      background-color: #555;
-  }
-  .card-header {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;;
-      margin-bottom: 10px;
-  }
+    .close-button:hover {
+    background-color: #555;
+    }
+    .card-header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;;
+    margin-bottom: 10px;
+    }
 
-  .main-header {
-  font-size: 2em; 
-  font-weight: bold; 
-  margin-top: 5px;
-  margin-bottom: 10px; 
-  }
+    .main-header {
+    font-size: 2em; 
+    font-weight: bold; 
+    margin-top: 5px;
+    margin-bottom: 10px; 
+    }
 
-  .subtext {
+    .subtext {
     font-size: 0.9em;
     color: #666;
     margin-top: 1px;
     margin-bottom: 25px;
-  }
+    }
 
-  .status-update {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-top: 10px;
-  }
+    .status-update {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+    }
 
-  .status-update label {
+    .status-update label {
     margin-right: 10px;
-  }
+    }
 
-  .status-update select {
+    .status-update select {
     padding: 8px;
     border: 1px solid #ddd;
     border-radius: 4px;
     background-color: white;
     width: 100%;
-  }
+    }
 
-  .status-row {
+    .status-row {
     display: flex;
     align-items: center;
     gap: 10px;
-  }
+    }
 
-  .status-update-container {
+    .status-update-container {
     display: flex;
     justify-content: center;    
     gap: 10px;
     margin-top: 10px;
     align-items: center;
     width: 100%;
-  }
+    }
 
-  .status-update button {
-      padding: 10px 20px;
-      background-color: #007bff;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-  }
+    .status-update button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    }
 
-  .status-update button:hover {
-      background-color: #0056b3;
-  }
+    .status-update button:hover {
+    background-color: #0056b3;
+    }
 
-  .request-card h3 {
-      margin-top: 0;
-      margin-bottom: 10px;
-  }
+    .request-card h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    }
 
-  .request-card p {
-      margin-bottom: 5px;
-      position: relative;
-  }
+    .request-card p {
+    margin-bottom: 5px;
+    position: relative;
+    }
 
-  .request-date {
-      font-size: 0.8em;
-      color: gray;
-      display: block;
-  }
+    .request-date {
+    font-size: 0.8em;
+    color: gray;
+    display: block;
+    }
 
-  select {
-      padding: 8px;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      background-color: white;
-  }
+    select {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: white;
+    }
 
-  button {
-      padding: 10px 20px;
-      background-color: #007bff;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      margin: 0 10px 10px 0;
-  }
+    button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 0 10px 10px 0;
+    }
 
-  button:hover {
-      background-color: #0056b3;
-  }
+    button:hover {
+    background-color: #0056b3;
+    }
 
-  .button-container {
+    .button-container {
     display: flex;
     justify-content: center;
     gap: 10px;
@@ -383,44 +383,44 @@
     align-items: flex-end;
     flex-shrink: 0;
     width: 100%;
-  }
+    }
 
-  .editbutton {
-      background-color: green;
-  }
+    .editbutton {
+    background-color: green;
+    }
 
-  .editbutton:hover {
-      background-color: rgb(1, 63, 1);
-  }
+    .editbutton:hover {
+    background-color: rgb(1, 63, 1);
+    }
 
-  .deletebutton {
-      background-color: red;
-  }
+    .deletebutton {
+    background-color: red;
+    }
 
-  .deletebutton:hover {
-      background-color: rgb(135, 0, 0);
-  }
+    .deletebutton:hover {
+    background-color: rgb(135, 0, 0);
+    }
 
-  .modal {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.7);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-  }
+    .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    }
 
-  .modal-content {
-      background-color: white;
-      padding: 20px;
-      border-radius: 5px;
-      display: flex;
-      flex-direction: column;
-      text-align: center;
-      width: 400px;
-  }
+    .modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 400px;
+    }
 </style>
